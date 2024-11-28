@@ -1,6 +1,6 @@
 # Account Changer
 Account Changer is a spigot **server-side** plugin that allows players to **redirect** thier client account to **another** account in server **with GUI**, without quit the client or using any mods. **Please read Installation and Configurations before use.**
-Spigot/Paper 1.20.1
+Spigot/Paper 1.20.1+ (1.20.1 & 1.21.3 Tested)
 
 ------------
 
