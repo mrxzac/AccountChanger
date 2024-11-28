@@ -1,0 +1,15 @@
+name: AccountChanger
+version: '1.0-SNAPSHOT'
+main: org.mrxzac.accountChanger.AccountChanger
+api-version: '1.20'
+depend: [ ProtocolLib ]
+commands:
+  acreload:
+    description: Reloads the AccountChanger's configuration.
+    usage: /acreload
+    permission: accountchanger.reload
+    permission-message: You don't have permission to use this command.
+permissions:
+  accountchanger.reload:
+    description: Allows the user to reload the plugin configuration.
+    default: op
