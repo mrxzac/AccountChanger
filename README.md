@@ -1,16 +1,16 @@
 # Account Changer
-Account Changer is a spigot **server-side** plugin that allows players to **redirect** thier client account to **another** account in server **with GUI**, without quit the client or using any mods. **Please read Installation and Configurations before use.**
+Account Changer is a spigot **server-side** plugin that allows players to **redirect/change** thier client account to **another** account in server **with GUI**, without quit the client or using any mods. **Please read Installation and Configurations before use.**
 Spigot/Paper 1.20.1+ (1.20.1 & 1.21.3 Tested)
 
 ------------
 
 ### Usage
-Gifs below are the demonstrations using config.yml above.
+Gifs and demonstrations below are using config.yml in **Configuration** section.
 
 ##### With account ABC:
 ![ABC](https://github.com/user-attachments/assets/20f53043-cf54-49ec-bab3-dfd4bbe28a82)
 
-##### With account BCD:
+##### With account BCD, changing to ABC:
 ![BCD](https://github.com/user-attachments/assets/247d70ff-aaf7-4247-8c15-601116bf84c1)
 
 ------------
@@ -45,4 +45,4 @@ MaxWait: 10
 
 `MaxWait` is an integer, indicating the **maximum time in seconds** that player who has chosen the account used to rejoin the server, if time used after choosing account longer then this, the choosing account will be expired and require re-choosing.
 
-
+This repository is under GNU General Public License v3.0.
