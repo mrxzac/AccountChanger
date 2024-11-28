@@ -1,11 +1,23 @@
 # Account Changer
-Account Changer is a spigot **server-side** plugin that allows players to **redirect/change** thier client account to **another** account in server **with GUI**, without quit the client or using any mods. **Please read Installation and Configurations before use.**
-Spigot/Paper 1.20.1+ (1.20.1 & 1.21.3 Tested)
 
-------------
+**Account Changer** is a powerful Spigot server-side plugin designed to enhance player convenience. It allows users to seamlessly switch their Minecraft accounts *in-game* via an intuitive GUI, eliminating the need to disconnect or use any client-side modifications.
 
-### Usage
-Gifs and demonstrations below are using config.yml in **Configuration** section.
+### Key Features
+- **In-Game Account Switching**: Change accounts directly from the server using a graphical interface.
+- **No Client Modifications Required**: Fully server-side, ensuring ease of use and compatibility.
+- **Requirements**: [**ProtocolLib**](https://github.com/dmulloy2/ProtocolLib "ProtocolLib"), **Spigot/Paper 1.20.1+**(tested for **1.20.1** and **1.21.3**).
+
+### Getting Started
+Before using the plugin, ensure you’ve read the [Installation](#installation) and [Configuration](#configuration) guides for proper setup. 
+
+Unlock a new level of flexibility for your server players today with **Account Changer**!
+
+
+
+
+
+## Demo
+The GIFs and demonstrations below showcase the functionality of the plugin using the `config.yml` settings provided in the **Configuration** section.
 
 ##### With account ABC:
 ![ABC](https://github.com/user-attachments/assets/20f53043-cf54-49ec-bab3-dfd4bbe28a82)
@@ -13,11 +25,22 @@ Gifs and demonstrations below are using config.yml in **Configuration** section.
 ##### With account BCD, changing to ABC:
 ![BCD](https://github.com/user-attachments/assets/247d70ff-aaf7-4247-8c15-601116bf84c1)
 
-------------
-### Installation
-This plugin requires [ProtocolLib](https://github.com/dmulloy2/ProtocolLib "ProtocolLib"). Just simply put downloaded ProtocolLib and AccountChanger-x.x-xxxx.jar into **plugins folder** in the server directory. Jar file of this plugin can be found in the latest release.
+
+
+
+## Installation
+
+This plugin requires [ProtocolLib](https://github.com/dmulloy2/ProtocolLib "ProtocolLib"). To set it up:
+
+1. Download **ProtocolLib** and place it in the `plugins` folder of your server directory.
+2. Download `AccountChanger-x.x-xxxx.jar` from the [latest release](https://github.com/mrxzac/AccountChanger/releases/latest "latest release") and place it in the same `plugins` folder.
+3. Restart your server to load the plugins.
+
 #### Notice
-For Servers which use authencation plugins when logging in, our plugin only support [Authme](https://www.spigotmc.org/resources/authmereloaded.6269/ "Authme") plugin, and require modification in its config.yml, modify `UnrestrictedInventories` in your config.yml in Authme to use this plugin:
+For servers using authentication plugins during login, this plugin only supports [AuthMe](https://www.spigotmc.org/resources/authmereloaded.6269/ "AuthMe"). You will need to modify `config.yml` in **AuthMe** to ensure compatibility:
+
+- Update the `UnrestrictedInventories` section in your `config.yml` to use this plugin:
+
 ```yaml
 .....
     # UnrestrictedInventories:
@@ -29,24 +52,42 @@ For Servers which use authencation plugins when logging in, our plugin only supp
     minPasswordLength: 5
 .....
 ```
-------------
-### Configuations and Usage
-#### Configurations : config.yml
-Configurations for this plugin is quite simple, it contains three parameters in `config.yml` in the `\Plugin\AccountChanger` directory.
+
+
+
+## Configuration
+
+Configuring this plugin is straightforward. The configuration file, `config.yml`, is located in the `\Plugin\AccountChanger` directory. It contains three main parameters for customization.  
+
 ```yaml
 Players:
   - ABC
 MaxPlayers: 20
 MaxWait: 10
 ```
-  `Players` are split by lines and added `  - ` in the front. These are the players who will **login without any account choosing steps** , and the player who is **not on the list** will be able to **choose an account from the list** to login.
+#### Configuration Parameters
 
-  `MaxPlayer` is an integer that indicates the maximum number of player accounts to choose, the window size **(inventory slots)** that will be shown in GUI.
+1. **`Players`**  
+   - This section contains a list of players, each entry starting with `-`.  
+   - Players listed here will **log in directly** without going through any account selection steps.  
+   - Players **not listed** will be presented with a GUI to **choose an account** from the available options.
 
-  `MaxWait` is an integer, indicating the **maximum time in seconds** that player who has chosen the account used to rejoin the server, if time used after choosing account longer then this, the choosing account will be expired and require re-choosing.
+2. **`MaxPlayer`**  
+   - An integer that sets the **maximum number of player accounts** available to choose from.  
+   - Determines the **GUI window size** (number of inventory slots).
 
-------------
+3. **`MaxWait`**  
+   - An integer that defines the **maximum time (in seconds)** a player has to rejoin the server after selecting an account.  
+   - If the player takes longer than this time, the selected account will expire, and the player will need to select an account again.
 
-Thanks for the powerful plugin, ProtocolLib, by dmulloy2.
 
-This repository is under GNU General Public License v3.0.
+
+## Acknowledgments  
+Special thanks to [ProtocolLib](https://github.com/dmulloy2/ProtocolLib) by **dmulloy2** for making this plugin possible.
+
+
+
+## License  
+This repository is licensed under the **GNU General Public License v3.0**.  
+For more details, see the [LICENSE](LICENSE) file.
+
