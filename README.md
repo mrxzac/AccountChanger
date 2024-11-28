@@ -10,6 +10,8 @@
 ### Getting Started
 Before using the plugin, ensure you’ve read the [Installation](#installation) and [Configuration](#configuration) guides for proper setup. 
 
+Use `/acreload` to reload the configs.
+
 Unlock a new level of flexibility for your server players today with **Account Changer**!
 
 
