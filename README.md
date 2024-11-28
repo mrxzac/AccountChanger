@@ -1,6 +1,6 @@
 # Account Changer
 
-**Account Changer** is a powerful Spigot server-side plugin designed to enhance player convenience. It allows users to seamlessly switch their Minecraft accounts *in-game* via an intuitive GUI, eliminating the need to disconnect or use any client-side modifications.
+**Account Changer** is a powerful Spigot server-side plugin designed to enhance player convenience. It allows users to seamlessly switch their Minecraft accounts *in-game* via an intuitive GUI, eliminating the need to disconnect or use any client-side modifications. This plugin is useful for accounts management in offline servers, since it is designed originally for offline servers.
 
 ### Key Features
 - **In-Game Account Switching**: Change accounts directly from the server using a graphical interface.
@@ -25,7 +25,7 @@ The GIFs and demonstrations below showcase the functionality of the plugin using
 ##### With account BCD, changing to ABC:
 ![BCD](https://github.com/user-attachments/assets/247d70ff-aaf7-4247-8c15-601116bf84c1)
 
-
+Originally, the plugin is designed for bedrock-java both sided server, as bedrock players cannot change their names. If you are also using geyser plugin, try this out!
 
 
 ## Installation
