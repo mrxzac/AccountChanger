@@ -105,9 +105,8 @@ MaxWait: 10
    - An integer that sets the **maximum number of player accounts** available to choose from.  
    - Determines the **GUI window size** (number of inventory slots).
 
-3. **`MaxWait`**  
-   - An integer that defines the **maximum time (in seconds)** a player has to rejoin the server after selecting an account.  
-   - If the player takes longer than this time, the selected account will expire, and the player will need to select an account again.
+3. **`MaxWait`**
+   - **Deprecated**
 
 
 
