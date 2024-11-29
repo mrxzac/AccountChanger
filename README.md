@@ -108,7 +108,12 @@ MaxWait: 10
 
 3. **`MaxWait`**
    - **Deprecated**
-
+## Permissions
+- `accountchanger.base`: be able to use `/ac`, all players by default
+- `accountchanger.reload`: be able to reload the plugin `/ac reload`, op by default
+- `accountchanger.switch`: be able to switch account `/ac switch`, all players by default
+- `accountchanger.clear`: be able to reset the account alias(status) of theirselves `/ac clear`, all players by default
+    - `accountchanger.clear.all`: be able to reset the account alias(status) of others `/ac clear`, op by default
 
 
 ## Acknowledgments  
