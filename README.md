@@ -30,11 +30,15 @@ Before using the plugin, ensure you’ve read the **Installation** and **Configu
 ## **Demo**
 Below are examples of the plugin in action using the default `config.yml` settings:
 
-### **With account ABC:**
-![ABC](https://github.com/user-attachments/assets/20f53043-cf54-49ec-bab3-dfd4bbe28a82)
+### **With listed account ABC, switching to DEF:**
+![ABCDEF](https://github.com/user-attachments/assets/1cb0bfa5-07b9-4755-b382-884ee72d0393)
 
-### **With account BCD, switching to ABC:**
-![BCD](https://github.com/user-attachments/assets/247d70ff-aaf7-4247-8c15-601116bf84c1)
+### **With switched account DEF, switching back to ABC:**
+![DEFABC](https://github.com/user-attachments/assets/6e52acfc-4e34-4ed3-b4b8-5abaa694dd2b)
+
+### **With unlisted account BCD, switching to DEF:**
+![BCDDEF](https://github.com/user-attachments/assets/8b3d69f7-6e55-4c29-84bc-308d6aac56e5)
+
 
 ### **Note:**  
 The plugin supports Bedrock-Java hybrid servers, making it ideal for servers using Geyser where Bedrock players cannot change their names.
