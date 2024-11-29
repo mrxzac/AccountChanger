@@ -11,13 +11,14 @@
 Before using the plugin, ensure you’ve read the [Installation](#installation) and [Configuration](#configuration) guides for proper setup. 
 
 **1. Commands**
-`/ac reload` reload the configs in plugin folder.
 
-`/ac clear`if without player at the end, clear command sender's status, alias. if with player, clear the target player's status,alias.
+ - `/ac reload` reload the configs in plugin folder.
 
-`/ac switch` open graphic interface for switch the account in game.
+ - `/ac clear`if without player at the end, clear command sender's status, alias. if with player, clear the target player's status,alias.
 
-`/ac help` shows help.
+ - `/ac switch` open graphic interface for switch the account in game.
+
+ - `/ac help` shows help.
 
 **2.Logic**
  - Original Account not in the list are required to choose the account to login, the alias account chosen previously will not be expire and the original account will always direct to the alias account chosen until a `/ac switch` to another account is performed or a `ac clear` is performed.
