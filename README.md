@@ -28,7 +28,14 @@ Before using the plugin, ensure you’ve read the **Installation** and **Configu
 
 
 ## **Demo**
-Below are examples of the plugin in action using the default `config.yml` settings:
+Below are examples of the plugin in action using settings:
+```
+Players:  
+  - ABC
+  - DEF
+MaxPlayers: 20  
+MaxWait: 10
+```
 
 ### **With listed account ABC, switching to DEF:**
 ![ABCDEF](https://github.com/user-attachments/assets/1cb0bfa5-07b9-4755-b382-884ee72d0393)
