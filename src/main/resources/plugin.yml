@@ -1,15 +1,25 @@
 name: AccountChanger
-version: '1.0-SNAPSHOT'
+version: '1.1'
 main: org.mrxzac.accountChanger.AccountChanger
 api-version: '1.20'
 depend: [ ProtocolLib ]
 commands:
-  acreload:
+  accountchanger:
     description: Reloads the AccountChanger's configuration.
-    usage: /acreload
+    usage: /accountchanger <func> [player]
+    aliases: [ac]
     permission: accountchanger.reload
     permission-message: You don't have permission to use this command.
 permissions:
   accountchanger.reload:
     description: Allows the user to reload the plugin configuration.
+    default: op
+  accountchanger.switch:
+    description: Allows the user to reload the plugin configuration.
+    default: true
+  accountchanger.clear:
+    description: Allows the user to clear the status for themselves.
+    default: true
+  accountchanger.clear.all:
+    description: Allows the user to clear the status for certain player.
     default: op

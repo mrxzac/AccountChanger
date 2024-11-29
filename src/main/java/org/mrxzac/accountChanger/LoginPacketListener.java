@@ -27,8 +27,18 @@ public class LoginPacketListener extends PacketAdapter {
 
             if(plugin.players.contains(originalUsername)){
                 // player who do not require account choosing
-                getPlugin().getLogger().info(ChatColor.AQUA+"[AccountChanger]"+ChatColor.RESET+"Player "+originalUsername+" is in players list,joining");
+                if(plugin.midplayers.containsKey(originalUsername)){
+                    String newUsername = plugin.midplayers.get(originalUsername);
+                    //plugin.midplayers.remove(originalUsername);
+                    getPlugin().getLogger().info(ChatColor.AQUA+"[AccountChanger]"+ChatColor.RESET+"Players in Mid stages:"+plugin.midplayers.toString());
+                    event.getPacket().getStrings().write(0, newUsername);
 
+                    getPlugin().getLogger().info(ChatColor.AQUA+"[AccountChanger]"+ChatColor.RESET+"Intercepted login packet. Changed username from "
+                            + originalUsername + " to " + newUsername);
+                }else {
+                    plugin.midplayers.put(originalUsername,originalUsername);
+                    getPlugin().getLogger().info(ChatColor.AQUA + "[AccountChanger]" + ChatColor.RESET + "Player " + originalUsername + " is in players list,joining");
+                }
             }else {
                 getPlugin().getLogger().info(ChatColor.AQUA+"[AccountChanger]"+ChatColor.RESET+"Player "+originalUsername+" is not in player list");
                 boolean Joined = plugin.midplayers.containsKey(originalUsername);
@@ -43,7 +53,7 @@ public class LoginPacketListener extends PacketAdapter {
                     // player who rejoined from account choosing
                     // Modify the username to an alternate account
                     String newUsername = plugin.midplayers.get(originalUsername);
-                    plugin.midplayers.remove(originalUsername);
+                    //plugin.midplayers.remove(originalUsername);
                     getPlugin().getLogger().info(ChatColor.AQUA+"[AccountChanger]"+ChatColor.RESET+"Players in Mid stages:"+plugin.midplayers.toString());
                     event.getPacket().getStrings().write(0, newUsername);
 
