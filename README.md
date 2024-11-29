@@ -2,7 +2,6 @@
 
 **Account Changer** is a powerful Spigot server-side plugin designed to enhance player convenience. It allows users to seamlessly switch their Minecraft accounts *in-game* via an intuitive GUI, eliminating the need to disconnect or use any client-side modifications. This plugin is particularly useful for managing accounts on offline servers.
 
----
 
 ## **Key Features**
 - **In-Game Account Switching**: Change accounts directly from the server using a graphical interface.
@@ -11,7 +10,6 @@
   - [**ProtocolLib**](https://github.com/dmulloy2/ProtocolLib)  
   - **Spigot/Paper 1.20.1+** (tested on **1.20.1** and **1.21.3**)
 
----
 
 ## **Getting Started**
 Before using the plugin, ensure you’ve read the **Installation** and **Configuration** sections for proper setup.
@@ -28,7 +26,6 @@ Before using the plugin, ensure you’ve read the **Installation** and **Configu
 - Accounts **in the list** can also switch accounts without restrictions.  
 - No time limit exists after choosing an account.
 
----
 
 ## **Demo**
 Below are examples of the plugin in action using the default `config.yml` settings:
@@ -42,7 +39,6 @@ Below are examples of the plugin in action using the default `config.yml` settin
 ### **Note:**  
 The plugin supports Bedrock-Java hybrid servers, making it ideal for servers using Geyser where Bedrock players cannot change their names.
 
----
 
 ## **Installation**
 This plugin requires [ProtocolLib](https://github.com/dmulloy2/ProtocolLib). Follow these steps to set it up:
@@ -62,7 +58,6 @@ allowCommands:
   - /ac  
   - /accountchanger  
 ```
----
 
 ## **Configuration**
 The configuration file, `config.yml`, is located in the `plugins/AccountChanger` directory. Customize the following parameters:
@@ -84,7 +79,6 @@ MaxWait: 10
 3. **`MaxWait`**  
    - *(Deprecated)*
 
----
 
 ## **Permissions**
 - `accountchanger.base`: Allows use of `/ac` (enabled for all players by default).  
@@ -93,16 +87,12 @@ MaxWait: 10
 - `accountchanger.clear`: Allows resetting account alias for oneself (`/ac clear`, enabled for all players).  
 - `accountchanger.clear.all`: Allows resetting account aliases for others (`/ac clear`, default for OP).
 
----
 
 ## **Acknowledgments**
 Special thanks to [ProtocolLib](https://github.com/dmulloy2/ProtocolLib) by **dmulloy2** for making this plugin possible.
 
----
 
 ## **License**
 This repository is licensed under the **GNU General Public License v3.0**.  
 For more details, see the [LICENSE](LICENSE) file.
-
----
 
