@@ -1,3 +1,4 @@
+![icon](https://github.com/user-attachments/assets/bc4a21ac-896c-4227-a96a-79f3b531b641)
 # **Account Changer**
 
 **Account Changer** is a powerful Spigot server-side plugin designed to enhance player convenience. It allows users to seamlessly switch their Minecraft accounts *in-game* via an intuitive GUI, eliminating the need to disconnect or use any client-side modifications. This plugin is particularly useful for managing accounts on offline servers.
