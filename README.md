@@ -10,11 +10,21 @@
 ### Getting Started
 Before using the plugin, ensure you’ve read the [Installation](#installation) and [Configuration](#configuration) guides for proper setup. 
 
-Use `/acreload` to reload the configs.
+**1. Commands**
+`/ac reload` reload the configs in plugin folder.
+
+`/ac clear`if without player at the end, clear command sender's status, alias. if with player, clear the target player's status,alias.
+
+`/ac switch` open graphic interface for switch the account in game.
+
+`/ac help` shows help.
+
+**2.Logic**
+ - Original Account not in the list are required to choose the account to login, the alias account chosen previously will not be expire and the original account will always direct to the alias account chosen until a `/ac switch` to another account is performed or a `ac clear` is performed.
+ - The Account in the list will be able to change their account also.
+ - There's no time limit after choosing the account
 
 Unlock a new level of flexibility for your server players today with **Account Changer**!
-
-
 
 
 
@@ -41,7 +51,8 @@ This plugin requires [ProtocolLib](https://github.com/dmulloy2/ProtocolLib "Prot
 #### Notice
 For servers using authentication plugins during login, this plugin only supports [AuthMe](https://www.spigotmc.org/resources/authmereloaded.6269/ "AuthMe"). You will need to modify `config.yml` in **AuthMe** to ensure compatibility:
 
-- Update the `UnrestrictedInventories` section in your `config.yml` to use this plugin:
+##### Update these configs
+- Update the `UnrestrictedInventories` section in your `config.yml` . e.g.
 
 ```yaml
 .....
@@ -55,7 +66,23 @@ For servers using authentication plugins during login, this plugin only supports
 .....
 ```
 
-
+- add 
+```yaml
+      - /ac
+      - /accountchanger
+``` 
+to `allowCommands` to help the players in unauthorized status be able to switch account. e.g.
+```yaml
+ # Hide the chat log from players who are not authenticated?
+    hideChat: false
+    # Allowed commands for unauthenticated players
+    allowCommands:
+      - /ac
+      - /accountchanger
+      - /login
+      - /log
+      - /l
+```
 
 ## Configuration
 
