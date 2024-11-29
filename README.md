@@ -1,127 +1,108 @@
-# Account Changer
+# **Account Changer**
 
-**Account Changer** is a powerful Spigot server-side plugin designed to enhance player convenience. It allows users to seamlessly switch their Minecraft accounts *in-game* via an intuitive GUI, eliminating the need to disconnect or use any client-side modifications. This plugin is useful for accounts management in offline servers, since it is designed originally for offline servers.
+**Account Changer** is a powerful Spigot server-side plugin designed to enhance player convenience. It allows users to seamlessly switch their Minecraft accounts *in-game* via an intuitive GUI, eliminating the need to disconnect or use any client-side modifications. This plugin is particularly useful for managing accounts on offline servers.
 
-### Key Features
+---
+
+## **Key Features**
 - **In-Game Account Switching**: Change accounts directly from the server using a graphical interface.
 - **No Client Modifications Required**: Fully server-side, ensuring ease of use and compatibility.
-- **Requirements**: [**ProtocolLib**](https://github.com/dmulloy2/ProtocolLib "ProtocolLib"), **Spigot/Paper 1.20.1+**(tested for **1.20.1** and **1.21.3**).
+- **Requirements**:  
+  - [**ProtocolLib**](https://github.com/dmulloy2/ProtocolLib)  
+  - **Spigot/Paper 1.20.1+** (tested on **1.20.1** and **1.21.3**)
 
-### Getting Started
-Before using the plugin, ensure you’ve read the [Installation](#installation) and [Configuration](#configuration) guides for proper setup. 
+---
 
-**1. Commands**
+## **Getting Started**
+Before using the plugin, ensure you’ve read the **Installation** and **Configuration** sections for proper setup.
 
- - `/ac reload` reload the configs in plugin folder.
+### **1. Commands**
+- `/ac reload`: Reloads the plugin configuration files.  
+- `/ac clear`: Clears the command sender's or a specified player's status and alias.  
+- `/ac switch`: Opens the GUI for account switching.  
+- `/ac help`: Displays help for plugin commands.
 
- - `/ac clear`if without player at the end, clear command sender's status, alias. if with player, clear the target player's status,alias.
+### **2. Logic**
+- Accounts **not listed** in the configuration require a user to select an alias account during login.  
+- Once chosen, an alias account persists until the user switches accounts via `/ac switch` or resets the alias with `/ac clear`.  
+- Accounts **in the list** can also switch accounts without restrictions.  
+- No time limit exists after choosing an account.
 
- - `/ac switch` open graphic interface for switch the account in game.
+---
 
- - `/ac help` shows help.
+## **Demo**
+Below are examples of the plugin in action using the default `config.yml` settings:
 
-**2.Logic**
- - Original Account not in the list are required to choose the account to login, the alias account chosen previously will not be expire and the original account will always direct to the alias account chosen until a `/ac switch` to another account is performed or a `ac clear` is performed.
- - The Account in the list will be able to change their account also.
- - There's no time limit after choosing the account
-
-Unlock a new level of flexibility for your server players today with **Account Changer**!
-
-
-
-## Demo
-The GIFs and demonstrations below showcase the functionality of the plugin using the `config.yml` settings provided in the **Configuration** section.
-
-##### With account ABC:
+### **With account ABC:**
 ![ABC](https://github.com/user-attachments/assets/20f53043-cf54-49ec-bab3-dfd4bbe28a82)
 
-##### With account BCD, changing to ABC:
+### **With account BCD, switching to ABC:**
 ![BCD](https://github.com/user-attachments/assets/247d70ff-aaf7-4247-8c15-601116bf84c1)
 
-Originally, the plugin is designed for bedrock-java both sided server, as bedrock players cannot change their names. If you are also using geyser plugin, try this out!
+### **Note:**  
+The plugin supports Bedrock-Java hybrid servers, making it ideal for servers using Geyser where Bedrock players cannot change their names.
 
+---
 
-## Installation
-
-This plugin requires [ProtocolLib](https://github.com/dmulloy2/ProtocolLib "ProtocolLib"). To set it up:
+## **Installation**
+This plugin requires [ProtocolLib](https://github.com/dmulloy2/ProtocolLib). Follow these steps to set it up:
 
 1. Download **ProtocolLib** and place it in the `plugins` folder of your server directory.
-2. Download `AccountChanger-x.x-xxxx.jar` from the [latest release](https://github.com/mrxzac/AccountChanger/releases/latest "latest release") and place it in the same `plugins` folder.
+2. Download `AccountChanger-x.x-xxxx.jar` from the [latest release](https://github.com/mrxzac/AccountChanger/releases/latest) and place it in the same folder.
 3. Restart your server to load the plugins.
 
-#### Notice
-For servers using authentication plugins during login, this plugin only supports [AuthMe](https://www.spigotmc.org/resources/authmereloaded.6269/ "AuthMe"). You will need to modify `config.yml` in **AuthMe** to ensure compatibility:
-
-##### Update these configs
-- Update the `UnrestrictedInventories` section in your `config.yml` . e.g.
-
-```yaml
-.....
-    # UnrestrictedInventories:
-    # - 'myCustomInventory1'
-    # - 'myCustomInventory2'
-    UnrestrictedInventories: ["Choose Your Account"]
-  security:
-    # Minimum length of password
-    minPasswordLength: 5
-.....
+### **Notice:**
+For servers using authentication plugins (e.g., AuthMe), ensure compatibility by updating the following configurations in `config.yml`:
 ```
-
-- add 
-```yaml
-      - /ac
-      - /accountchanger
-``` 
-to `allowCommands` to help the players in unauthorized status be able to switch account. e.g.
-```yaml
- # Hide the chat log from players who are not authenticated?
-    hideChat: false
-    # Allowed commands for unauthenticated players
-    allowCommands:
-      - /ac
-      - /accountchanger
-      - /login
-      - /log
-      - /l
+UnrestrictedInventories: ["Choose Your Account"] 
 ```
+Add these commands to the `allowCommands` section:  
+```
+allowCommands:  
+  - /ac  
+  - /accountchanger  
+```
+---
 
-## Configuration
-
-Configuring this plugin is straightforward. The configuration file, `config.yml`, is located in the `\Plugin\AccountChanger` directory. It contains three main parameters for customization.  
-
-```yaml
-Players:
-  - ABC
-MaxPlayers: 20
+## **Configuration**
+The configuration file, `config.yml`, is located in the `plugins/AccountChanger` directory. Customize the following parameters:
+```
+Players:  
+  - ABC  
+MaxPlayers: 20  
 MaxWait: 10
 ```
-#### Configuration Parameters
-
+### **Parameters:**
 1. **`Players`**  
-   - This section contains a list of players, each entry starting with `-`.  
-   - Players listed here will **log in directly** without going through any account selection steps.  
-   - Players **not listed** will be presented with a GUI to **choose an account** from the available options.
+   - Lists players who bypass the account selection process.  
+   - Non-listed players must select an account during login.
 
-2. **`MaxPlayer`**  
-   - An integer that sets the **maximum number of player accounts** available to choose from.  
-   - Determines the **GUI window size** (number of inventory slots).
+2. **`MaxPlayers`**  
+   - Sets the maximum number of player accounts available for selection.  
+   - Adjusts the GUI's inventory slots accordingly.
 
-3. **`MaxWait`**
-   - **Deprecated**
-## Permissions
-- `accountchanger.base`: be able to use `/ac`, all players by default
-- `accountchanger.reload`: be able to reload the plugin `/ac reload`, op by default
-- `accountchanger.switch`: be able to switch account `/ac switch`, all players by default
-- `accountchanger.clear`: be able to reset the account alias(status) of theirselves `/ac clear`, all players by default
-    - `accountchanger.clear.all`: be able to reset the account alias(status) of others `/ac clear`, op by default
+3. **`MaxWait`**  
+   - *(Deprecated)*
 
+---
 
-## Acknowledgments  
+## **Permissions**
+- `accountchanger.base`: Allows use of `/ac` (enabled for all players by default).  
+- `accountchanger.reload`: Grants permission to reload configurations (`/ac reload`, default for OP).  
+- `accountchanger.switch`: Enables account switching (`/ac switch`, enabled for all players by default).  
+- `accountchanger.clear`: Allows resetting account alias for oneself (`/ac clear`, enabled for all players).  
+- `accountchanger.clear.all`: Allows resetting account aliases for others (`/ac clear`, default for OP).
+
+---
+
+## **Acknowledgments**
 Special thanks to [ProtocolLib](https://github.com/dmulloy2/ProtocolLib) by **dmulloy2** for making this plugin possible.
 
+---
 
-
-## License  
+## **License**
 This repository is licensed under the **GNU General Public License v3.0**.  
 For more details, see the [LICENSE](LICENSE) file.
+
+---
 
