@@ -8,9 +8,12 @@ commands:
     description: Reloads the AccountChanger's configuration.
     usage: /accountchanger <func> [player]
     aliases: [ac]
-    permission: accountchanger.reload
+    permission: accountchanger.base
     permission-message: You don't have permission to use this command.
 permissions:
+  accountchanger.base:
+    description: Allows the user to reload the plugin configuration.
+    default: true
   accountchanger.reload:
     description: Allows the user to reload the plugin configuration.
     default: op
