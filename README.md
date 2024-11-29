@@ -1,95 +1,110 @@
-# Account Changer
+![icon](https://github.com/user-attachments/assets/ac21ef17-8942-459c-af03-31bcc4c98a2d)
+# **Account Changer**
 
-**Account Changer** is a powerful Spigot server-side plugin designed to enhance player convenience. It allows users to seamlessly switch their Minecraft accounts *in-game* via an intuitive GUI, eliminating the need to disconnect or use any client-side modifications. This plugin is useful for accounts management in offline servers, since it is designed originally for offline servers.
+**Account Changer** is a powerful Spigot server-side plugin designed to enhance player convenience. It allows users to seamlessly switch their Minecraft accounts *in-game* via an intuitive GUI, eliminating the need to disconnect or use any client-side modifications. This plugin is particularly useful for managing accounts on offline servers.
 
-### Key Features
+
+## **Key Features**
 - **In-Game Account Switching**: Change accounts directly from the server using a graphical interface.
 - **No Client Modifications Required**: Fully server-side, ensuring ease of use and compatibility.
-- **Requirements**: [**ProtocolLib**](https://github.com/dmulloy2/ProtocolLib "ProtocolLib"), **Spigot/Paper 1.20.1+**(tested for **1.20.1** and **1.21.3**).
-
-### Getting Started
-Before using the plugin, ensure you’ve read the [Installation](#installation) and [Configuration](#configuration) guides for proper setup. 
-
-Use `/acreload` to reload the configs.
-
-Unlock a new level of flexibility for your server players today with **Account Changer**!
+- **Requirements**:  
+  - [**ProtocolLib**](https://github.com/dmulloy2/ProtocolLib)  
+  - **Spigot/Paper 1.20.1+** (tested on **1.20.1** and **1.21.3**)
 
 
+## **Getting Started**
+Before using the plugin, ensure you’ve read the **Installation** and **Configuration** sections for proper setup.
+
+### **1. Commands**
+- `/ac reload`: Reloads the plugin configuration files.  
+- `/ac clear`: Clears the command sender's or a specified player's status and alias.  
+- `/ac switch`: Opens the GUI for account switching.  
+- `/ac help`: Displays help for plugin commands.
+
+### **2. Logic**
+- Accounts **not listed** in the configuration require a user to select an alias account during login.  
+- Once chosen, an alias account persists until the user switches accounts via `/ac switch` or resets the alias with `/ac clear`.  
+- Accounts **in the list** can also switch accounts without restrictions.  
+- No time limit exists after choosing an account.
 
 
-
-## Demo
-The GIFs and demonstrations below showcase the functionality of the plugin using the `config.yml` settings provided in the **Configuration** section.
-
-##### With account ABC:
-![ABC](https://github.com/user-attachments/assets/20f53043-cf54-49ec-bab3-dfd4bbe28a82)
-
-##### With account BCD, changing to ABC:
-![BCD](https://github.com/user-attachments/assets/247d70ff-aaf7-4247-8c15-601116bf84c1)
-
-Originally, the plugin is designed for bedrock-java both sided server, as bedrock players cannot change their names. If you are also using geyser plugin, try this out!
-
-
-## Installation
-
-This plugin requires [ProtocolLib](https://github.com/dmulloy2/ProtocolLib "ProtocolLib"). To set it up:
-
-1. Download **ProtocolLib** and place it in the `plugins` folder of your server directory.
-2. Download `AccountChanger-x.x-xxxx.jar` from the [latest release](https://github.com/mrxzac/AccountChanger/releases/latest "latest release") and place it in the same `plugins` folder.
-3. Restart your server to load the plugins.
-
-#### Notice
-For servers using authentication plugins during login, this plugin only supports [AuthMe](https://www.spigotmc.org/resources/authmereloaded.6269/ "AuthMe"). You will need to modify `config.yml` in **AuthMe** to ensure compatibility:
-
-- Update the `UnrestrictedInventories` section in your `config.yml` to use this plugin:
-
-```yaml
-.....
-    # UnrestrictedInventories:
-    # - 'myCustomInventory1'
-    # - 'myCustomInventory2'
-    UnrestrictedInventories: ["Choose Your Account"]
-  security:
-    # Minimum length of password
-    minPasswordLength: 5
-.....
+## **Demo**
+Below are examples of the plugin in action using settings:
 ```
-
-
-
-## Configuration
-
-Configuring this plugin is straightforward. The configuration file, `config.yml`, is located in the `\Plugin\AccountChanger` directory. It contains three main parameters for customization.  
-
-```yaml
-Players:
+Players:  
   - ABC
-MaxPlayers: 20
+  - DEF
+MaxPlayers: 20  
 MaxWait: 10
 ```
-#### Configuration Parameters
 
+### **With listed account ABC, switching to DEF:**
+![ABCDEF](https://github.com/user-attachments/assets/1cb0bfa5-07b9-4755-b382-884ee72d0393)
+
+### **With switched account DEF, switching back to ABC:**
+![DEFABC](https://github.com/user-attachments/assets/6e52acfc-4e34-4ed3-b4b8-5abaa694dd2b)
+
+### **With unlisted account BCD, switching to DEF:**
+![BCDDEF](https://github.com/user-attachments/assets/8b3d69f7-6e55-4c29-84bc-308d6aac56e5)
+
+
+### **Note:**  
+The plugin supports Bedrock-Java hybrid servers, making it ideal for servers using Geyser where Bedrock players cannot change their names.
+
+
+## **Installation**
+This plugin requires [ProtocolLib](https://github.com/dmulloy2/ProtocolLib). Follow these steps to set it up:
+
+1. Download **ProtocolLib** and place it in the `plugins` folder of your server directory.
+2. Download `AccountChanger-x.x-xxxx.jar` from the [latest release](https://github.com/mrxzac/AccountChanger/releases/latest) and place it in the same folder.
+3. Restart your server to load the plugins.
+
+### **Notice:**
+For servers using authentication plugins (e.g., AuthMe), ensure compatibility by updating the following configurations in `config.yml`:
+```
+UnrestrictedInventories: ["Choose Your Account"] 
+```
+Add these commands to the `allowCommands` section:  
+```
+allowCommands:  
+  - /ac  
+  - /accountchanger  
+```
+
+## **Configuration**
+The configuration file, `config.yml`, is located in the `plugins/AccountChanger` directory. Customize the following parameters:
+```
+Players:  
+  - ABC  
+MaxPlayers: 20  
+MaxWait: 10
+```
+### **Parameters:**
 1. **`Players`**  
-   - This section contains a list of players, each entry starting with `-`.  
-   - Players listed here will **log in directly** without going through any account selection steps.  
-   - Players **not listed** will be presented with a GUI to **choose an account** from the available options.
+   - Lists players who bypass the account selection process.  
+   - Non-listed players must select an account during login.
 
-2. **`MaxPlayer`**  
-   - An integer that sets the **maximum number of player accounts** available to choose from.  
-   - Determines the **GUI window size** (number of inventory slots).
+2. **`MaxPlayers`**  
+   - Sets the maximum number of player accounts available for selection.  
+   - Adjusts the GUI's inventory slots accordingly.
 
 3. **`MaxWait`**  
-   - An integer that defines the **maximum time (in seconds)** a player has to rejoin the server after selecting an account.  
-   - If the player takes longer than this time, the selected account will expire, and the player will need to select an account again.
+   - *(Deprecated)*
 
 
+## **Permissions**
+- `accountchanger.base`: Allows use of `/ac` (enabled for all players by default).  
+- `accountchanger.reload`: Grants permission to reload configurations (`/ac reload`, default for OP).  
+- `accountchanger.switch`: Enables account switching (`/ac switch`, enabled for all players by default).  
+- `accountchanger.clear`: Allows resetting account alias for oneself (`/ac clear`, enabled for all players).  
+- `accountchanger.clear.all`: Allows resetting account aliases for others (`/ac clear`, default for OP).
 
-## Acknowledgments  
+
+## **Acknowledgments**
 Special thanks to [ProtocolLib](https://github.com/dmulloy2/ProtocolLib) by **dmulloy2** for making this plugin possible.
 
 
-
-## License  
+## **License**
 This repository is licensed under the **GNU General Public License v3.0**.  
 For more details, see the [LICENSE](LICENSE) file.
 
