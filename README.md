@@ -20,6 +20,9 @@ Before using the plugin, ensure you’ve read the **Installation** and **Configu
 - `/ac clear`: Clears the command sender's or a specified player's status and alias.  
 - `/ac switch`: Opens the GUI for account switching.  
 - `/ac help`: Displays help for plugin commands.
+- `/ac list`: list players allowed.
+- `/ac original`: list last alias in game and original name bindings of all players.
+- `/ac alias`: list original names and aliases bindings of all players.
 
 ### **2. Logic**
 - Accounts **not listed** in the configuration require a user to select an alias account during login.  
@@ -89,8 +92,8 @@ MaxWait: 10
    - Adjusts the GUI's inventory slots accordingly.
 
 3. **`MaxWait`**  
-   - *(Deprecated)*
-
+   - Number of ticks wait to show the GUI's inventory for the non-listed players.
+   - Change higher to allow network issues.
 
 ## **Permissions**
 - `accountchanger.base`: Allows use of `/ac` (enabled for all players by default).  
@@ -98,7 +101,9 @@ MaxWait: 10
 - `accountchanger.switch`: Enables account switching (`/ac switch`, enabled for all players by default).  
 - `accountchanger.clear`: Allows resetting account alias for oneself (`/ac clear`, enabled for all players).  
 - `accountchanger.clear.all`: Allows resetting account aliases for others (`/ac clear`, default for OP).
-
+- `accountchanger.list` allow list players allowed (`/ac list`, default for OP).
+- `accountchanger.original` allow list last alias in game and original name bindings of all players (`/ac original`, default for OP).
+- `accountchanger.alias` allow list original names and aliases bindings of all players (`/ac alias`, default for OP).
 
 ## **Acknowledgments**
 Special thanks to [ProtocolLib](https://github.com/dmulloy2/ProtocolLib) by **dmulloy2** for making this plugin possible.
