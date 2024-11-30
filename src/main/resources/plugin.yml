@@ -1,12 +1,11 @@
 name: AccountChanger
-version: '1.1'
+version: '1.2'
 main: org.mrxzac.accountChanger.AccountChanger
 api-version: '1.20'
 depend: [ ProtocolLib ]
 commands:
   accountchanger:
     description: Reloads the AccountChanger's configuration.
-    usage: /accountchanger <func> [player]
     aliases: [ac]
     permission: accountchanger.base
     permission-message: You don't have permission to use this command.
@@ -25,4 +24,10 @@ permissions:
     default: true
   accountchanger.clear.all:
     description: Allows the user to clear the status for certain player.
+    default: op
+  accountchanger.original:
+    description: Allows the user to clear the status for themselves.
+    default: op
+  accountchanger.alias:
+    description: Allows the user to clear the status for themselves.
     default: op

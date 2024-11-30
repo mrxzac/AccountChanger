@@ -10,15 +10,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.*;
-import java.util.function.Supplier;
 
 public final class AccountChanger extends JavaPlugin {
     private ProtocolManager protocolManager;
     public List<?> players;
     public int maxplayer;
-    public int seconds;
-    public HashMap<String, String> midplayers = new HashMap<String, String>();
-    public HashMap<String, String> lastori = new HashMap<String, String>();
+    public int ticks;
+    public HashMap<String, String> midplayers = new HashMap<String, String>();//original name, alias name
+    public HashMap<String, String> originals = new HashMap<String, String>();//alias name, original name
+    public HashMap<String, Boolean> chosen = new HashMap<String, Boolean>();
 
     public void onLoad() {
         protocolManager = ProtocolLibrary.getProtocolManager();
@@ -35,7 +35,7 @@ public final class AccountChanger extends JavaPlugin {
         saveDefaultConfig();
         maxplayer = getConfig().getInt("MaxPlayers");
         players = getConfig().getList("Players");
-        seconds = getConfig().getInt("MaxWait");
+        ticks = getConfig().getInt("MaxWait");
         getLogger().info(ChatColor.AQUA+"[AccountChanger]"+ChatColor.RESET+"Official Players:"+players.toString());
 
         //Add listeners
@@ -43,22 +43,12 @@ public final class AccountChanger extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new JoiningEvent(this),this);//GUI Open Listener
         getServer().getPluginManager().registerEvents(new MenuClick(this), this);//GUI Select Listener
         getServer().getPluginManager().registerEvents(new Menuquit(this), this);//GUI quit unexpected
-        this.getCommand("accountchanger").setTabCompleter(new Tabcomplete());
+        this.getCommand("accountchanger").setTabCompleter(new Tabcomplete());//Tabcompleter
     }
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-    }
-
-
-    public static <K, V> K getKeyByValue(HashMap<K, V> map, V value) {
-        for (Map.Entry<K, V> entry : map.entrySet()) {
-            if (entry.getValue().equals(value)) {
-                return entry.getKey();
-            }
-        }
-        return null; // Return null if no matching key is found
     }
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -68,72 +58,119 @@ public final class AccountChanger extends JavaPlugin {
                 return false;
             }
             if(args[0].equalsIgnoreCase("reload")) {
-                if (sender.hasPermission("accountchanger.reload")) {
+                if (sender.hasPermission("accountchanger.reload")) {// reload command
                     reloadConfig(); // Reload the config from disk
                     maxplayer = getConfig().getInt("MaxPlayers");
                     players = getConfig().getList("Players");
-                    seconds = getConfig().getInt("MaxWait");
-                    sender.sendMessage(ChatColor.AQUA + "[AccountChanger]" + ChatColor.RESET + "Configuration reloaded successfully!");
-                    sender.sendMessage(ChatColor.AQUA + "[AccountChanger]" + ChatColor.RESET + "Official Players:" + players.toString());
-                    sender.sendMessage(ChatColor.AQUA + "[AccountChanger]" + ChatColor.RESET + "MaxPlayer:" + maxplayer + "|MaxWait:" + seconds);
+                    ticks = getConfig().getInt("MaxWait");
+                    midplayers = new HashMap<String, String>();
+                    originals = new HashMap<String, String>();
+                    chosen = new HashMap<String, Boolean>();
+                    sender.sendMessage("Configuration reloaded successfully!");
+                    sender.sendMessage("Official Players:" +ChatColor.GOLD+ players.toString());
+                    sender.sendMessage("MaxPlayer:" +ChatColor.GOLD+ maxplayer );
+                    sender.sendMessage("MaxWait:" +ChatColor.GOLD+ ticks);
                     return true;
                 } else {
                     sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
-                    return true;
+                    return false;
                 }
-            }else if(args[0].equalsIgnoreCase("switch")){
+
+            }else if(args[0].equalsIgnoreCase("switch")){ // switch command
                 if (sender.hasPermission("accountchanger.switch")) {
                     if (!(sender instanceof Player player)) {
                         sender.sendMessage(ChatColor.RED + "This command can only be run by a player.");
-                        return true;
+                        return false;
                     }
 
-                    //midplayers.put(player.getName(), player.getName());
+                    chosen.put(String.valueOf(sender),Boolean.FALSE);
                     PlayerMenu.openMenu(player, players, maxplayer);
+                    return true;
                 }
 
-            }else if (args[0].equalsIgnoreCase("help")) {
+            }else if (args[0].equalsIgnoreCase("help")) {// help command
                 sender.sendMessage(ChatColor.GREEN + "=== Account Changer Help ===");
                 sender.sendMessage(ChatColor.YELLOW + "/ac reload - reload config");
                 sender.sendMessage(ChatColor.YELLOW + "/ac switch - switch account");
+                sender.sendMessage(ChatColor.YELLOW + "/ac list - check listed accounts");
+                sender.sendMessage(ChatColor.YELLOW + "/ac original - last alias => original");
+                sender.sendMessage(ChatColor.YELLOW + "/ac alias - original => alias");
                 sender.sendMessage(ChatColor.YELLOW + "/ac clear <player> - clear state for account");
                 sender.sendMessage(ChatColor.YELLOW + "/ac help - Show this help message");
                 return true;
-            }else if(args[0].equalsIgnoreCase("clear")){
-                if(args.length==1) {
-                    if(sender.hasPermission("accountchanger.clear")) {
-                        midplayers.remove(getKeyByValue(midplayers, sender.getName()));
+
+            }else if(args[0].equalsIgnoreCase("clear")) {//clear command
+                if (args.length == 1) {
+                    if (sender.hasPermission("accountchanger.clear") && !sender.getName().equals("Server")) {
+                        midplayers.remove(originals.get(sender.getName()));
+                        originals.remove(sender.getName());
                         Bukkit.getPlayerExact(sender.getName()).kickPlayer("Status Reset, Please Rejoin");
                         sender.sendMessage(ChatColor.AQUA + "Cleared state for " + sender.getName());
                         return true;
-                    }else {
+                    } else {
                         sender.sendMessage(ChatColor.RED + "Unknown command. /ac help for help");
                         return false;
                     }
-                }else if(args.length==2) {
-                    if(sender.hasPermission("accountchanger.clear.all")){
-                        midplayers.remove(getKeyByValue(midplayers, args[1]));
+                } else if (args.length == 2) {
+                    if (sender.hasPermission("accountchanger.clear.all")) {
+                        midplayers.remove(originals.get(args[1]));
+                        originals.remove(args[1]);
+
                         Player kicking = Bukkit.getPlayerExact(args[1]);
-                        if(kicking!=null) {
+                        if (kicking != null) {
                             kicking.kickPlayer("Status Reset, Please Rejoin");
-                            sender.sendMessage(ChatColor.AQUA + "Cleared state for " + args[1]);
-                            return true;
-                        }else {
-                            sender.sendMessage(ChatColor.RED + "Player Not found");
-                            return false;
                         }
-                    }else{
+                        sender.sendMessage(ChatColor.AQUA + "Cleared state for " + args[1]);
+                        return true;
+                    } else {
                         sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
-                        return false;
+                        return false;//no permission for clear.all
                     }
-                }else {
+                } else {
                     sender.sendMessage(ChatColor.RED + "Unknown command. /ac help for help");
-                    return false;
+                    return false;//wrong command in clear
 
                 }
-            }else {
+            }else if(args[0].equalsIgnoreCase("alias")) {
+                sender.sendMessage("Original => Alias");
+                if (sender.hasPermission("accountchanger.alias")) {
+                    for (Map.Entry<String, String> player : midplayers.entrySet()) {
+                        sender.sendMessage(ChatColor.AQUA+player.getKey() + ChatColor.RESET+
+                                "=alias as=>"+ChatColor.GOLD+ player.getValue());
+                    }
+                    return true;
+                }else {
+                    sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
+                    return false;
+                }
+            }else if(args[0].equalsIgnoreCase("original")){
+                if (sender.hasPermission("accountchanger.original")) {
+                    sender.sendMessage("Last alias => Original ");
+                    for (Map.Entry<String, String> player : originals.entrySet()) {
+                        sender.sendMessage(ChatColor.GOLD+player.getKey() +ChatColor.RESET+
+                                "=original is=>" +ChatColor.AQUA+ player.getValue());
+                    }
+                    return true;
+                }else {
+                    sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
+                    return false;
+                }
+
+            }else if(args[0].equalsIgnoreCase("list")){
+                if (sender.hasPermission("accountchanger.list")) {
+                    sender.sendMessage("Listed Players:");
+                    for (int i=0;i<players.size();i++) {
+                        sender.sendMessage(ChatColor.GOLD + players.get(i).toString());
+                    }
+                    return true;
+                }else {
+                    sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
+                    return false;
+                }
+
+            }else {// other non listed command
                 sender.sendMessage(ChatColor.RED + "Unknown command. /ac help for help");
-                return false;
+                return false;// wrong command
             }
         }
         return false;

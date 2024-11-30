@@ -1,5 +1,6 @@
 package org.mrxzac.accountChanger;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
@@ -14,15 +15,15 @@ public class Tabcomplete implements TabCompleter {
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         List<String> suggestions = new ArrayList<>();
 
-        // Suggest subcommands for /mycommand
         if (args.length == 1) {
-            List<String> subcommands = Arrays.asList("help", "reload", "switch","clear");
+            List<String> subcommands = Arrays.asList("help", "reload", "switch","clear","alias","original","list");
             for (String subcommand : subcommands) {
                 if (subcommand.toLowerCase().startsWith(args[0].toLowerCase())) {
                     suggestions.add(subcommand);
                 }
             }
         }
+
         return suggestions;
     }
 }
