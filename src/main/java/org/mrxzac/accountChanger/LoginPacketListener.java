@@ -39,6 +39,8 @@ public class LoginPacketListener extends PacketAdapter {
 
             }else {
                 if(plugin.players.contains(originalUsername)){
+
+                    plugin.originals.put(originalUsername,originalUsername);
                     getPlugin().getLogger().info("Player "+originalUsername+" is in list and not change alias, direct join");
                 }else {
                     getPlugin().getLogger().info("Player "+originalUsername+" is not list and not change alias, direct join");
