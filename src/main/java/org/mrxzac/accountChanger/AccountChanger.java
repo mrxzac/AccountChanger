@@ -93,9 +93,11 @@ public final class AccountChanger extends JavaPlugin {
                 sender.sendMessage(ChatColor.YELLOW + "/ac reload - reload config");
                 sender.sendMessage(ChatColor.YELLOW + "/ac switch - switch account");
                 sender.sendMessage(ChatColor.YELLOW + "/ac list - check listed accounts");
-                sender.sendMessage(ChatColor.YELLOW + "/ac original - last alias => original");
-                sender.sendMessage(ChatColor.YELLOW + "/ac alias - original => alias");
-                sender.sendMessage(ChatColor.YELLOW + "/ac clear <player> - clear state for account");
+                sender.sendMessage(ChatColor.YELLOW + "/ac original - show all last alias => original");
+                sender.sendMessage(ChatColor.YELLOW + "/ac alias - show all original => alias");
+                sender.sendMessage(ChatColor.YELLOW + "/ac add <player> <alias> - add original => alias");
+                sender.sendMessage(ChatColor.YELLOW + "/ac remove <player> - remove alias by original name");
+                sender.sendMessage(ChatColor.YELLOW + "/ac clear <player> - clear state for account in game");
                 sender.sendMessage(ChatColor.YELLOW + "/ac help - Show this help message");
                 return true;
 
@@ -168,6 +170,44 @@ public final class AccountChanger extends JavaPlugin {
                     return false;
                 }
 
+            }else if(args[0].equalsIgnoreCase("add")) {
+                if (sender.hasPermission("accountchanger.add")) {
+                    if (args.length == 3) {
+                        midplayers.put(args[1], args[2]);
+                        sender.sendMessage("Add link Successfully for " +
+                                ChatColor.AQUA + args[1] + ChatColor.RESET + " => " +
+                                ChatColor.GOLD + args[2]);
+                        return true;
+                    } else {
+                        sender.sendMessage(ChatColor.RED + "Incorrect Arguments");
+                        return false;
+                    }
+                } else {
+                    sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
+                    return false;
+                }
+            }else if(args[0].equalsIgnoreCase("remove")){
+                    if(sender.hasPermission("accountchanger.remove")){
+                        if(args.length==2){
+                            if(midplayers.containsKey(args[1])){
+                                midplayers.remove(args[1]);
+                                sender.sendMessage("remove link Successfully for " +
+                                        ChatColor.AQUA+args[1]+ChatColor.RESET);
+                                return true;
+                            }else {
+                                sender.sendMessage(ChatColor.RED + "Cannot remove link for " +
+                                        ChatColor.AQUA+args[1]+ChatColor.RESET);
+                                return false;
+                            }
+
+                        }else {
+                            sender.sendMessage(ChatColor.RED + "Incorrect Arguments");
+                            return false;
+                        }
+                    }else {
+                        sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
+                        return false;
+                    }
             }else {// other non listed command
                 sender.sendMessage(ChatColor.RED + "Unknown command. /ac help for help");
                 return false;// wrong command

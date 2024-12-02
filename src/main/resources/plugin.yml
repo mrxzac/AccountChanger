@@ -31,3 +31,9 @@ permissions:
   accountchanger.alias:
     description: Allows the user to clear the status for themselves.
     default: op
+  accountchanger.add:
+    description: add player link
+    default: op
+  accountchanger.remove:
+    description: remove player link
+    default: op
