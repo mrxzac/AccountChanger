@@ -23,7 +23,9 @@ Before using the plugin, ensure you’ve read the **Installation** and **Configu
 - `/ac list`: list players allowed.
 - `/ac original`: list last alias in game and original name bindings of all players.
 - `/ac alias`: list original names and aliases bindings of all players.
-
+- `/ac add <player> <alias>`: add a player - alias link
+- `/ac remove <player>`: remove a player - alias link by player's original name, differ from `/ac clear` where remove from alias.
+  
 ### **2. Logic**
 - Accounts **not listed** in the configuration require a user to select an alias account during login.  
 - Once chosen, an alias account persists until the user switches accounts via `/ac switch` or resets the alias with `/ac clear`.  
@@ -104,6 +106,8 @@ MaxWait: 10
 - `accountchanger.list` allow list players allowed (`/ac list`, default for OP).
 - `accountchanger.original` allow list last alias in game and original name bindings of all players (`/ac original`, default for OP).
 - `accountchanger.alias` allow list original names and aliases bindings of all players (`/ac alias`, default for OP).
+- `accountchanger.add` allow to add a player - alias link (`/ac add`, default for OP).
+- `accountchanger.remove` allow to remove a player - alias link (`/ac remove`, default for OP).
 
 ## **Acknowledgments**
 Special thanks to [ProtocolLib](https://github.com/dmulloy2/ProtocolLib) by **dmulloy2** for making this plugin possible.
