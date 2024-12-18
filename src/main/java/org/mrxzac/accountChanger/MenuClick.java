@@ -25,7 +25,7 @@ public class MenuClick implements Listener {
 
             // Check the clicked slot
             if (event.getCurrentItem() != null) {
-                String chosen = event.getCurrentItem().getItemMeta().getDisplayName();//the chosen name
+                String chosen = plugin.playerItemsinv.get(event.getCurrentItem().getType());//the chosen name
                 Player player = (Player) event.getWhoClicked();//the player clicks
 
                 var key = plugin.originals.get(player.getName());//player's original name

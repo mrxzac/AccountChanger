@@ -4,6 +4,7 @@ import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.ProtocolLibrary;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -13,7 +14,10 @@ import java.util.*;
 
 public final class AccountChanger extends JavaPlugin {
     private ProtocolManager protocolManager;
-    public List<?> players;
+    public List<String> players;
+    public HashMap<String, Material> playerItems;
+    public HashMap<Material,String> playerItemsinv;
+
     public int maxplayer;
     public int ticks;
     public HashMap<String, String> midplayers = new HashMap<String, String>();//original name, alias name
@@ -33,8 +37,32 @@ public final class AccountChanger extends JavaPlugin {
         }
 
         saveDefaultConfig();
+
         maxplayer = getConfig().getInt("MaxPlayers");
-        players = getConfig().getList("Players");
+        playerItems = new HashMap<>();
+        players = new ArrayList<>();
+        playerItemsinv = new HashMap<>();
+        List<String> got = getConfig().getStringList("Players");
+        for (String entry : got) {
+
+            String[] parts = entry.split(":");
+
+            if (parts.length == 2) {
+                String playerName = parts[0];
+                String materialName = parts[1].toUpperCase(); // Ensure the material name is uppercase
+
+                try {
+                    Material material = Material.valueOf(materialName);
+                    players.add(playerName);
+                    playerItems.put(playerName, material);
+                    playerItemsinv.put(material,playerName);
+                } catch (IllegalArgumentException e) {
+                    getLogger().warning("Invalid Material: " + materialName + " for player: " + playerName);
+                }
+            } else {
+                getLogger().warning("Invalid entry in Players: " + entry);
+            }
+        }
         ticks = getConfig().getInt("MaxWait");
         getLogger().info(ChatColor.AQUA+"[AccountChanger]"+ChatColor.RESET+"Official Players:"+players.toString());
 
@@ -61,7 +89,28 @@ public final class AccountChanger extends JavaPlugin {
                 if (sender.hasPermission("accountchanger.reload")) {// reload command
                     reloadConfig(); // Reload the config from disk
                     maxplayer = getConfig().getInt("MaxPlayers");
-                    players = getConfig().getList("Players");
+                    playerItems = new HashMap<>();
+                    players = new ArrayList<>();
+                    playerItemsinv= new HashMap<>();
+                    List<String> got = getConfig().getStringList("Players");
+                    for (String entry : got) {
+                        String[] parts = entry.split(":");
+                        if (parts.length == 2) {
+                            String playerName = parts[0];
+                            String materialName = parts[1].toUpperCase(); // Ensure the material name is uppercase
+
+                            try {
+                                Material material = Material.valueOf(materialName);
+                                players.add(playerName);
+                                playerItems.put(playerName, material);
+                                playerItemsinv.put(material,playerName);
+                            } catch (IllegalArgumentException e) {
+                                getLogger().warning("Invalid Material: " + materialName + " for player: " + playerName);
+                            }
+                        } else {
+                            getLogger().warning("Invalid entry in Players: " + entry);
+                        }
+                    }
                     ticks = getConfig().getInt("MaxWait");
                     midplayers = new HashMap<String, String>();
                     originals = new HashMap<String, String>();
@@ -84,7 +133,7 @@ public final class AccountChanger extends JavaPlugin {
                     }
 
                     chosen.put(String.valueOf(sender),Boolean.FALSE);
-                    PlayerMenu.openMenu(player, players, maxplayer);
+                    PlayerMenu.openMenu(player, players,playerItems, maxplayer);
                     return true;
                 }
 

@@ -1,30 +1,31 @@
 package org.mrxzac.accountChanger;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
+
+import java.util.HashMap;
 
 public class PlayerHead{
 
-    public static ItemStack getPlayerHead(String playerName) {
+    public static ItemStack getPlayerHead(String playerName, HashMap<String,Material> playerItem) {
         // Create a new ItemStack for the player head
-        ItemStack head = new ItemStack(Material.PLAYER_HEAD, 1);
+        Material material =playerItem.get(playerName);
+        if(material==null)material=Material.BARRIER;
+        ItemStack item = new ItemStack(material,1);
+        ItemMeta meta = item.getItemMeta();
+        if (meta != null) {
+            // Set a custom name for the item
+            meta.setDisplayName(ChatColor.GOLD+" "+ChatColor.ITALIC+(playerName)+" ");
 
-        // Get the meta for the player head
-        SkullMeta skullMeta = (SkullMeta) head.getItemMeta();
+            // Apply the ItemMeta back to the ItemStack
+            item.setItemMeta(meta);
+        }
 
-        // Set the owner of the head to the player's name
-        OfflinePlayer player = Bukkit.getOfflinePlayer(playerName);
-        skullMeta.setOwningPlayer(player);
-
-        // Optionally, set a display name for the item
-        skullMeta.setDisplayName(playerName);
-
-        // Apply the meta to the item
-        head.setItemMeta(skullMeta);
-
-        return head;
+        return item;
     }
 }

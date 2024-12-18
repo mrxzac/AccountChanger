@@ -16,7 +16,7 @@ public class Tabcomplete implements TabCompleter {
         List<String> suggestions = new ArrayList<>();
 
         if (args.length == 1) {
-            List<String> subcommands = Arrays.asList("help", "reload", "switch","clear","alias","original","list");
+            List<String> subcommands = Arrays.asList("help", "reload", "switch","clear","alias","original","list","add","remove");
             for (String subcommand : subcommands) {
                 if (subcommand.toLowerCase().startsWith(args[0].toLowerCase())) {
                     suggestions.add(subcommand);

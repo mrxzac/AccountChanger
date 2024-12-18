@@ -23,8 +23,9 @@ public class JoiningEvent implements Listener{
 
         var key = plugin.originals.get(player.getName());//player's original name
         var nameori = (key!=null)?(key):("[No alias]");//double check
-
-        plugin.getLogger().info("Player "+player.getName()+" with alias "+nameori+" joining");
+        Bukkit.broadcastMessage("Player "+ChatColor.GOLD+player.getName()+ChatColor.RESET+" with original account "+
+                ChatColor.AQUA+nameori+ChatColor.RESET+" joining");
+        plugin.getLogger().info("Player "+nameori+" with alias "+player.getName()+" joining");
 
         if(!plugin.players.contains(player.getName())) {//player not in list
             //open gui for the player
@@ -33,7 +34,7 @@ public class JoiningEvent implements Listener{
 
                 event.getPlayer().sendMessage("Choose An Account To Login");
                 plugin.chosen.put(event.getPlayer().getName(),Boolean.FALSE);// mark player start choosing
-                PlayerMenu.openMenu(event.getPlayer(),plugin.players,plugin.maxplayer);
+                PlayerMenu.openMenu(event.getPlayer(),plugin.players,plugin.playerItems,plugin.maxplayer);
 
             }, (long) plugin.ticks);
         }
